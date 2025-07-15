@@ -1,0 +1,97 @@
+{% load static %}
+{% load chunks %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products | TeeStyle</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="index.html"><img src="{% static 'images/logo.png' %}" alt="logo" width="125px"></a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    
+                    <li><a href="{% url 'account' %}">Account</a></li>
+                    <li><a href="{% url 'order_status' %}">My Orders</a></li>
+
+                </ul>
+            </nav>
+            <a href="{% url 'cart' %}"><img src="{% static 'images/cart.png' %}" width="30px" height="30px"></a>
+            <img src="{% static 'images/menu.png' %}" class="menu-icon" onclick="menutoggle()">
+        </div>
+    </div>
+
+    <!-- All Products -->
+
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>All Products</h2>
+           
+        </div>
+        {% for product_chunks in products|chunks:4 %}
+        <div class="row">
+            {% for product in product_chunks %}
+            <div class="col-4">
+                <a href="{% url 'products_details' product.id %}"><img src="{{ product.image.url }}"></a>
+                <h4>{{product.title}}</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>{{product.price}}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        
+        <div class="page-btn">
+            <span>1</span>
+            <span>2</span>
+           
+            <span>&#8594;</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+           <p style="text-align: center;">teestyle@gmail.com</p>
+            <hr>
+            <p class="copyright">Copyright 2025- teestyle</p>
+        </div>
+    </div>
+
+    <!-- javascript -->
+
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px"
+            }
+            else {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+    </script>
+
+</body>
+
+</html>

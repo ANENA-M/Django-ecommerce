@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | teestyle</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt="logo" width="125px"></a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'list_products' %}">Products</a></li>
+                    <li><a href="{% url 'account' %}">Account</a></li>
+                    <li><a href="{% url 'order_status' %}">My Orders</a></li>
+                    <li><a href="{% url 'cart' %}"><img src="{% static 'images/cart.png' %}" width="30px" height="30px"></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="small-container">
+        <h2 class="title">My Orders</h2>
+        {% if orders %}
+
+        <table class="orders-table">
+           <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Total Price</th>
+                <th>Status</th>
+            </tr>
+             {% for order in orders %}
+             <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.created_at }}</td>
+                <td>${{ order.total }}</td>
+                <!-- <td>{{ order.order_status }}</td> -->
+                <td>{{ order.get_order_status_display }}</td>
+
+             </tr>
+             {% endfor %}
+           
+        </table>
+        {% else %}
+        <p>No Orders</p>
+        {% endif %}
+
+       
+    </div>
+
+    <!-- Footer -->
+    <!-- <div class="footer">
+        <div class="container">
+            <hr>
+            <p class="copyright">
+                Copyright {% now "Y" %} - RedStore
+            </p>
+        </div>
+    </div> -->
+    
+<!-- <footer style="background: #000;color: #ccc;text-align: center;padding: 20px 0;">
+    Copyright 2025 – teestyle
+  </footer> -->
+   <div class="footer">
+        <div class="container">
+           <p style="text-align: center;">teestyle@gmail.com</p>
+            <hr>
+            <p class="copyright">Copyright 2020 - Samwit Adhikary</p>
+        </div>
+    </div>
+
+</body>
+</html>
